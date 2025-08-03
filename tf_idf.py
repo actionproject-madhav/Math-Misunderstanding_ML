@@ -37,7 +37,9 @@ def tfidf_approach():
     
     # Create labels
     train_df['label'] = train_df['Category'] + ':' + train_df['Misconception']
-    all_labels = sorted(train_df['label'].unique())
+    train_df = train_df.dropna(subset=['label'])
+
+    all_labels = sorted(train_df['label'].astype(str).unique())
     
     # Get unique students and create label matrix
     unique_students = train_df.drop_duplicates(subset=['row_id']).sort_values('row_id')
